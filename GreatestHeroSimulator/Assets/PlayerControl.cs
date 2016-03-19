@@ -102,26 +102,21 @@ public class PlayerControl : MonoBehaviour {
 	void Update () {
         if (fight)
         {
-            if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
+       /*     if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
  {
-                main.SendMessage("Active", new Vector4(0, 0, 0, 0));
+                main.SendMessage("Active", new Vector4(1, 0, 0, 1));
                 debugFlag = 2;
  }
  if ((debugTimer + 2 < Time.time) && (debugFlag == 2))
  {
-                main.SendMessage("Active", new Vector4(0, 2, 2, 0));
+                main.SendMessage("Active", new Vector4(1, 0, 0, 1));
                 debugFlag = 3;
  }
  if ((debugTimer + 3 < Time.time) && (debugFlag == 3))
  {
-                main.SendMessage("Active", new Vector4(0, 0, 0, 0));
+                main.SendMessage("Active", new Vector4(1, 0, 0, 1));
                 debugFlag = 4;
- }
- if ((debugTimer + 4 < Time.time) && (debugFlag == 4))
- {
-                main.SendMessage("Active", new Vector4(0, 2, 2, 0));
-                debugFlag = 5;
- }
+ }*/
             foreach (Touch touch in Input.touches)
             {
                 //  fl = true;

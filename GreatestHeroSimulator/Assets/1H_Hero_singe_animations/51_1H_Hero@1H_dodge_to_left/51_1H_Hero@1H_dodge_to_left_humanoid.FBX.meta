@@ -148,7 +148,6 @@ ModelImporter:
     4300004: hero
     7400000: 1H_dodge_to_left_humanoid
     9500000: //RootNode
-    11100000: //RootNode
     13700000: hero
   materials:
     importMaterials: 1
@@ -964,8 +963,9 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: Bip01
     hasTranslationDoF: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 01bdb071a1d439340b260a3ba09f9050,
+    type: 3}
+  animationType: 3
   humanoidOversampling: 1
   additionalBone: 1
   userData: 

@@ -122,14 +122,15 @@ public class FightManager : MonoBehaviour {
         {
            /* if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
             {
-                DoAction(new Vector4(0, 0, 0, 0));
+                DoAction(new Vector4(1, 0, 0, 1));
                 debugFlag = 2;
             }
+            
             if ((debugTimer + 2 < Time.time) && (debugFlag == 2))
             {
-                DoAction(new Vector4(0, 2, 2, 0));
+                DoAction(new Vector4(1, 2, 2, 1));
                 debugFlag = 3;
-            }
+            }/*
             if ((debugTimer + 3 < Time.time) && (debugFlag == 3))
             {
                 DoAction(new Vector4(0, 0, 0, 0));
@@ -203,6 +204,7 @@ public class FightManager : MonoBehaviour {
                     // Debug.Log((stateERight + rand + 3) % 3);
                     if (waitTimerRight + 2 < Time.time)
                     {
+                        firstEAction = true;
                         ActiveEnemy(new Vector4(1, (stateERight + rand + 3) % 3, (stateERight + rand + 3) % 3, 1));
                     }
                 }
@@ -222,16 +224,19 @@ public class FightManager : MonoBehaviour {
             }
             else
             {
-                if ((stateELeft != stateRight) && (waitTimerLeft + 3 < Time.time))
+                if ((stateELeft != stateRight) && (waitTimerLeft + 1.5 < Time.time))
                 {
-                    if (stateELeft == 0)
-                    {
-                        ActiveEnemy(new Vector4(0, stateELeft, stateELeft, 0));
-                    }
-                    else
-                    {
-                        ActiveEnemy(new Vector4(0, stateRight - 3, stateRight - 3, 0));
-                    }
+                 //   if ((stateELeft == 0) && ((int)Time.time % 2 == 0))
+                   // {
+                    //    ActiveEnemy(new Vector4(0, stateELeft, stateELeft, 0));
+                   // }
+                    //else
+                    //{
+                        ActiveEnemy(new Vector4(0, stateRight, stateRight, 0));
+                       // Debug.Log(new Vector4(0, stateRight, stateRight, 0));
+                    //}
+                    //waitTimerLeft = Time.time;
+                    secondEAction = true;
                 }
                 else
                 {
@@ -246,67 +251,202 @@ public class FightManager : MonoBehaviour {
         }
     }
 
+       void DoAction(Vector4 act)
+       {
+           if (act.x == 1)
+           {
+               timer1 = Time.time;
+               if (act.w == 1)
+               {
+                   if (act.y == act.z)
+                   {
+                       if (stateRight != act.y)
+                       {
+                           firstAction = true;
+                           newRight = (int)act.y;
+                           //Debug.Log(stateRight);
+                           //Debug.Log(newRight);
+                           //Debug.Log("---------");
+                           if (stateRight == 0)
+                           {
+                               if (act.y == 1)
+                               {
+                                   swordAnim.Play("SwordUpMId");
+                               }
+                               if (act.y == 2)
+                               {
+                                   swordAnim.Play("SwordUp-Down");
+                               }
+                           }
+                           if (stateRight == 1)
+                           {
+                               if (act.y == 0)
+                               {
+                                   swordAnim.Play("SwordMid-Up");
+                               }
+                               if (act.y == 2)
+                               {
+                                   swordAnim.Play("New Animation");
+                               }
+                           }
+                           if (stateRight == 2)
+                           {
+                               if (act.y == 1)
+                               {
+                                   swordAnim.Play("SwordDown-Mid");
+                               }
+                               if (act.y == 0)
+                               {
+                                   swordAnim.Play("SwordDown-Up");
+                               }
+                           }
+                       }
+                       else
+                       {
+                           if (stateRight == 0)
+                           {
+                               swordAnim.Play("SwA24-4");
+                           }
+                           if (stateRight == 1)
+                           {
+                               swordAnim.Play("SwA5-5");
+                           }
+                           if (stateRight == 2)
+                           {
+                               swordAnim.Play("SwA26-6");
+                           }
+                       }
+                   }
+               }
+           }
+           if (act.x == 0)
+           {
+               timer2 = Time.time;
+               if (act.w == 0)
+               {
+                   if (act.y == act.z)
+                   {
+                       if (stateLeft != act.y)
+                       {
+                           secondAction = true;
+                           newLeft = (int)act.y;
+                          // Debug.Log(stateRight);
+                           //Debug.Log(newRight);
+                           //Debug.Log("---------");
+                           if (stateLeft == 0)
+                           {
+                               if (act.y == 1)
+                               {
+                                   shieldAnim.Play("ShieldUp-Mid");
+                               }
+                               if (act.y == 2)
+                               {
+                                   shieldAnim.Play("ShieldDown-Up2");
+                               }
+                           }
+                           if (stateLeft == 1)
+                           {
+                               if (act.y == 0)
+                               {
+                                   shieldAnim.Play("ShieldMId-Up");
+                               }
+                               if (act.y == 2)
+                               {
+                                   shieldAnim.Play("ShieldMId-Down");
+                               }
+                           }
+                           if (stateLeft == 2)
+                           {
+                               if (act.y == 1)
+                               {
+                                   shieldAnim.Play("ShieldDown-Mid");
+                               }
+                               if (act.y == 0)
+                               {
+                                   shieldAnim.Play("ShieldUp-Down2");
+                               }
+                           }
+                       }
+                       else
+                       {
+                           if (stateLeft == 0)
+                           {
+                               shieldAnim.Play("ShA1-1");
+                           }
+                           if (stateLeft == 1)
+                           {
+                               shieldAnim.Play("ShA2-2");
+                           }
+                       }
+                   }
+               }
+           }
+       }
+       /*
     void DoAction(Vector4 act)
     {
         if (act.x == 1)
         {
+            firstAction = true;
+            newLeft = (int)act.z;
             timer1 = Time.time;
-            if (act.w == 1)
+            if(stateRight == 0)
             {
-                if (act.y == act.z)
+                if (act.w == 1)
                 {
-                    if (stateRight != act.y)
+                    if (act.y == 0)
                     {
-                        firstAction = true;
-                        newRight = (int)act.y;
-                        //Debug.Log(stateRight);
-                        //Debug.Log(newRight);
-                        //Debug.Log("---------");
-                        if (stateRight == 0)
-                        {
-                            if (act.y == 1)
-                            {
-                                swordAnim.Play("SwordUpMId");
-                            }
-                            if (act.y == 2)
-                            {
-                                swordAnim.Play("SwordUp-Down");
-                            }
-                        }
-                        if (stateRight == 1)
-                        {
-                            if (act.y == 0)
-                            {
-                                swordAnim.Play("SwordMid-Up");
-                            }
-                            if (act.y == 2)
-                            {
-                                swordAnim.Play("New Animation");
-                            }
-                        }
-                        if (stateRight == 2)
-                        {
-                            if (act.y == 1)
-                            {
-                                swordAnim.Play("SwordDown-Mid");
-                            }
-                            if (act.y == 0)
-                            {
-                                swordAnim.Play("SwordDown-Up");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (stateRight == 0)
+                        if (act.z == 0)
                         {
                             swordAnim.Play("SwA24-4");
                         }
-                        if (stateRight == 1)
+                        if (act.z == 1)
+                        {
+                            swordAnim.Play("SwordUpMId");
+                        }
+                        if (act.z == 2)
+                        {
+                            swordAnim.Play("SwordUp-Down");
+                        }
+                    }
+                }
+            }
+            if (stateRight == 1)
+            {
+                if (act.w == 1)
+                {
+                    if (act.y == 0)
+                    {
+                        if (act.z == 0)
+                        {
+                            swordAnim.Play("SwordMid-Up");
+                        }
+                        if (act.z == 1)
                         {
                             swordAnim.Play("SwA5-5");
                         }
-                        if (stateRight == 2)
+                        if (act.z == 2)
+                        {
+                            swordAnim.Play("New Animation");
+                        }
+                    }
+                }
+            }
+            if (stateRight == 2)
+            {
+                if (act.w == 1)
+                {
+                    if (act.y == 0)
+                    {
+                        if (act.z == 0)
+                        {
+                            swordAnim.Play("SwA24-4");
+                        }
+                        if (act.z == 1)
+                        {
+                            swordAnim.Play("SwordDown-Up");
+                        }
+                        if (act.z == 2)
                         {
                             swordAnim.Play("SwA26-6");
                         }
@@ -325,7 +465,7 @@ public class FightManager : MonoBehaviour {
                     {
                         secondAction = true;
                         newLeft = (int)act.y;
-                       // Debug.Log(stateRight);
+                        // Debug.Log(stateRight);
                         //Debug.Log(newRight);
                         //Debug.Log("---------");
                         if (stateLeft == 0)
@@ -376,7 +516,7 @@ public class FightManager : MonoBehaviour {
                 }
             }
         }
-    }
+    }*/
 
     void DoEnemyAction(Vector4 act)
     {
@@ -503,11 +643,11 @@ public class FightManager : MonoBehaviour {
                     {
                         if (stateELeft == 0)
                         {
-                            shieldAnim.Play("ShA1-1");
+                          //  shieldEAnim.Play("ShA1-1");
                         }
                         if (stateELeft == 1)
                         {
-                            shieldAnim.Play("ShA2-2");
+                          //  shieldEAnim.Play("ShA2-2");
                         }
                     }
                 }
@@ -520,13 +660,13 @@ public class FightManager : MonoBehaviour {
         if (move.x == 0)
         {
             action2 = move;
-            main.SendMessage("setPSh", new Vector4(stateLeft, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
+            main.SendMessage("setPSh", new Vector4(stateLeft, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
         }
         else
         {
             action1 = move;
           //  Debug.Log(new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
-            main.SendMessage("setPSw", new Vector4(stateRight, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
+            main.SendMessage("setPSw", new Vector4(stateRight + 3, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
         }
         DoAction(move);
     }
@@ -536,12 +676,12 @@ public class FightManager : MonoBehaviour {
         if (move.x == 1)
         {
             action1e = move;
-            main.SendMessage("setESw", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
+            main.SendMessage("setESw", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
         }
         else
         {
             action2e = move;
-            main.SendMessage("setESh", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
+            main.SendMessage("setESh", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
         }
         DoEnemyAction(move);
     }
