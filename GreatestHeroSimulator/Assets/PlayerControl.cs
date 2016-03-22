@@ -101,8 +101,8 @@ public class PlayerControl : MonoBehaviour {
 
 	void Update () {
         if (fight)
-        {
-       /*     if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
+        {/*
+            if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
  {
                 main.SendMessage("Active", new Vector4(1, 0, 0, 1));
                 debugFlag = 2;
@@ -116,7 +116,7 @@ public class PlayerControl : MonoBehaviour {
  {
                 main.SendMessage("Active", new Vector4(1, 0, 0, 1));
                 debugFlag = 4;
- }*/
+ }//*/
             foreach (Touch touch in Input.touches)
             {
                 //  fl = true;

@@ -119,8 +119,8 @@ public class FightManager : MonoBehaviour {
         //  Debug.Log(fight);
        // DoAction(new Vector4(0, 0, 0, 0));
         if (fight)
-        {
-           /* if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
+        {/*
+            if ((debugTimer + 1 < Time.time) && (debugFlag == 1))
             {
                 DoAction(new Vector4(1, 0, 0, 1));
                 debugFlag = 2;
@@ -128,19 +128,19 @@ public class FightManager : MonoBehaviour {
             
             if ((debugTimer + 2 < Time.time) && (debugFlag == 2))
             {
-                DoAction(new Vector4(1, 2, 2, 1));
+                DoAction(new Vector4(1, 0, 0, 1));
                 debugFlag = 3;
-            }/*
+            }
             if ((debugTimer + 3 < Time.time) && (debugFlag == 3))
             {
-                DoAction(new Vector4(0, 0, 0, 0));
+                DoAction(new Vector4(1, 0, 0, 1));
                 debugFlag = 4;
             }
-            if ((debugTimer + 4 < Time.time) && (debugFlag == 4))
+            if ((debugTimer + 3.4 < Time.time) && (debugFlag == 4))
             {
-                DoAction(new Vector4(0, 2, 2, 0));
+                DoAction(new Vector4(1, 0, 0, 1));
                 debugFlag = 5;
-            }*/
+            }//*/
             if (firstAction)
             {
 
@@ -660,13 +660,13 @@ public class FightManager : MonoBehaviour {
         if (move.x == 0)
         {
             action2 = move;
-            main.SendMessage("setPSh", new Vector4(stateLeft, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
+            main.SendMessage("setPSh", new Vector4(stateLeft, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) +  1 + Abs(move.x - move.w))));
         }
         else
         {
             action1 = move;
           //  Debug.Log(new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25));
-            main.SendMessage("setPSw", new Vector4(stateRight + 3, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
+            main.SendMessage("setPSw", new Vector4(stateRight + 3, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + 1 + Abs(move.x - move.w))));
         }
         DoAction(move);
     }
@@ -676,12 +676,12 @@ public class FightManager : MonoBehaviour {
         if (move.x == 1)
         {
             action1e = move;
-            main.SendMessage("setESw", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
+            main.SendMessage("setESw", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + 1 + Abs(move.x - move.w))));
         }
         else
         {
             action2e = move;
-            main.SendMessage("setESh", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + Abs(move.x - move.w))));
+            main.SendMessage("setESh", new Vector4(move.x * 3 + move.y, move.w * 3 + move.z, Time.time, Time.time + (float)0.25 * (Abs(move.y - move.z) + 1 + Abs(move.x - move.w))));
         }
         DoEnemyAction(move);
     }

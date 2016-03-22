@@ -8,6 +8,7 @@ public class HealthManager : MonoBehaviour {
     bool options;
 
     public GUIStyle stNorm;
+    public GUIStyle stNormTex;
     public GUIStyle stNorm1;
     public GUIStyle stAxeT;
     public GUIStyle stAxeF;
@@ -82,6 +83,11 @@ public class HealthManager : MonoBehaviour {
     bool sword;
     bool map;
     bool shield;
+
+    public Texture2D enemyHT;
+    public Texture2D playerHT;
+    public Texture2D plState;
+    public Texture2D eState;
 
     public void Fight()
     {
@@ -205,7 +211,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = stSwT;
                 }
-                if (GUI.Button(new Rect(0, 0, Screen.width / 4, Screen.height / 2), "Sword", gs))
+                if (GUI.Button(new Rect(0, 0, Screen.width / 4, Screen.height / 2), "", gs))
                 {
                     sword = true;
                 }
@@ -214,7 +220,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = stAxeT;
                 }
-                if (GUI.Button(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), "Axe", gs))
+                if (GUI.Button(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), "", gs))
                 {
                     sword = false;
                 }
@@ -223,7 +229,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = stSh1T;
                 }
-                if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 4, Screen.height / 2), "Viking shield", gs))
+                if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 4, Screen.height / 2), "", gs))
                 {
                     shield = true;
                 }
@@ -232,28 +238,30 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = stSh2T;
                 }
-                if (GUI.Button(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), "Knight shield", gs))
+                if (GUI.Button(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), "", gs))
                 {
+
                     shield = false;
                 }
-                gs = stM1F;
-                if (map)
-                {
-                    gs = stM1T;
-                }
-                if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map1", gs))
-                {
-                    map = true;
-                }
-                gs = stM2F;
-                if (!map)
-                {
-                    gs = stM2T;
-                }
-                if (GUI.Button(new Rect(Screen.width / 4, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map2", gs))
-                {
-                    map = false;
-                }
+               // gs = stM1F;
+                //  if (map)
+                // {
+                //    gs = stM1T;
+                //}
+                //if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map1", gs))
+                // {
+                //    map = true;
+                // }
+                // gs = stM2F;
+                // if (!map)
+                // {
+                //     gs = stM2T;
+                // }
+                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+               // if (GUI.Button(new Rect(Screen.width / 4, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map2", gs))
+              //  {
+               //     map = false;
+                //}
                 if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Back", stNorm))
                 {
                     options = !options;
@@ -300,9 +308,17 @@ public class HealthManager : MonoBehaviour {
         else
         {
             string s = playerHealth.ToString();
-            GUI.Label(new Rect(0, 0, Screen.width / 2, Screen.height), s);//playerHealth.ToString);
+           // Debug.Log(eShState.y);
+            GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * (pSwState.y - 3), Screen.width / 2 , Screen.height / 3), plState);
+            GUI.DrawTexture(new Rect(0, Screen.height / 3 * pShState.y, Screen.width / 2, Screen.height / 3), plState);
+            GUI.DrawTexture(new Rect(0, Screen.height / 3 * (eSwState.y - 3), Screen.width / 2, Screen.height / 3), eState);
+            GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * eShState.y, Screen.width / 2, Screen.height / 3), eState);
+
+            GUI.DrawTexture(new Rect(0, 0, Screen.width / 6, Screen.height / 4), playerHT);
+            GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), enemyHT);
+            GUI.Label(new Rect(0, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);//playerHealth.ToString);
             s = enemyHealth.ToString();
-            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height), s);// enemyHealth.ToString);
+            GUI.Label(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);// enemyHealth.ToString);
         }
     }
 
@@ -335,8 +351,11 @@ public class HealthManager : MonoBehaviour {
 
     void DoPSwAction(Vector4 action)
     {
-      //  Debug.Log(action);
-        //Debug.Log(eShState);
+        //  Debug.Log(action);
+       // Debug.Log(eShState);
+        //Debug.Log(Time.time);
+        //Debug.Log((action.y + 3) % 6);
+       // Debug.Log(1);
         if (action.x == action.y)
         {
             // if ((eShState.x == (action.y + 3) % 6) && (eShState.w < Time.time))
@@ -345,7 +364,7 @@ public class HealthManager : MonoBehaviour {
             //}
             //else
             //{
-                if ((eShState.y == (action.y + 3) % 6) && (eShState.w > Time.time))
+                if ((eShState.y == (action.y + 3) % 6) && (eShState.w < Time.time))
                 {
                     PlaySwShield();
                 }
@@ -385,7 +404,7 @@ public class HealthManager : MonoBehaviour {
            // }
            // else
            // {
-                if ((pShState.y == (action.y + 3) % 6) && (pShState.w > Time.time))
+                if ((pShState.y == (action.y + 3) % 6) && (pShState.w < Time.time))
                 {
                 // Debug.Log(2);
                 PlayESwShield();
@@ -395,6 +414,7 @@ public class HealthManager : MonoBehaviour {
                     // if (((int)action.x == 5) && ((int)eShState.x))
                     playerHealth -= 1;
                     PlayEHit();
+                    Handheld.Vibrate();
                 }
             //}
         }

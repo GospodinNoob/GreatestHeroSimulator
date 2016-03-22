@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreatestHeroSimulator.CSharp.Plugins", "GreatestHeroSimulator.CSharp.Plugins.csproj", "{CCF51247-032E-1970-D8A4-BF448B1E47A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreatestHeroSimulator.CSharp", "GreatestHeroSimulator.CSharp.csproj", "{09F0CDE0-39E1-B3A0-3724-E0DAFE62F608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreatestHeroSimulator.CSharp.Editor", "GreatestHeroSimulator.CSharp.Editor.csproj", "{5C70A6F6-CC0F-62A0-B861-98F5C283E17B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCF51247-032E-1970-D8A4-BF448B1E47A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCF51247-032E-1970-D8A4-BF448B1E47A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCF51247-032E-1970-D8A4-BF448B1E47A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCF51247-032E-1970-D8A4-BF448B1E47A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09F0CDE0-39E1-B3A0-3724-E0DAFE62F608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F0CDE0-39E1-B3A0-3724-E0DAFE62F608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F0CDE0-39E1-B3A0-3724-E0DAFE62F608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F0CDE0-39E1-B3A0-3724-E0DAFE62F608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C70A6F6-CC0F-62A0-B861-98F5C283E17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C70A6F6-CC0F-62A0-B861-98F5C283E17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C70A6F6-CC0F-62A0-B861-98F5C283E17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C70A6F6-CC0F-62A0-B861-98F5C283E17B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

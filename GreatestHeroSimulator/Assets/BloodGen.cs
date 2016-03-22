@@ -17,6 +17,8 @@ public class BloodGen : MonoBehaviour {
     void Gen()
     {
         go.active = true;
+        go.SendMessage("Plus");
+       // Debug.Log(1);
     }
 	
 	// Update is called once per frame
