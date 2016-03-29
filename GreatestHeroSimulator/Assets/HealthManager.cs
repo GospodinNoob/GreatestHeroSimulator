@@ -135,6 +135,64 @@ public class HealthManager : MonoBehaviour {
         ASe.clip = hitSound;
         AS2e.clip = shieldHitSound;
     }
+
+    private void Save()
+    {
+        PlayerPrefs.SetInt("Weapon", sword);
+        PlayerPrefs.SetInt("Shield", sword);
+        PlayerPrefs.SetInt("Level", level);
+        PlayerPrefs.SetInt("WL", winsLow);
+        PlayerPrefs.SetInt("WM", winsMed);
+        PlayerPrefs.SetInt("WH", winsHigh);
+        PlayerPrefs.SetInt("LL", loseLow);
+        PlayerPrefs.SetInt("LM", loseMed);
+        PlayerPrefs.SetInt("LH", loseHigh);
+        if (paidSw)
+        {
+            PlayerPrefs.SetInt("PaidSw", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("PaidSw", 0);
+        }
+        if (paidSh)
+        {
+            PlayerPrefs.SetInt("PaidSh", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("PaidSh", 0);
+        }
+    }
+
+    private void Load()
+    {
+        sword = PlayerPrefs.GetInt("Weapon");
+        PlayerPrefs.GetInt("Shield", sword);
+        PlayerPrefs.GetInt("Level", level);
+        PlayerPrefs.GetInt("WL", winsLow);
+        PlayerPrefs.GetInt("WM", winsMed);
+        PlayerPrefs.GetInt("WH", winsHigh);
+        PlayerPrefs.GetInt("LL", loseLow);
+        PlayerPrefs.GetInt("LM", loseMed);
+        PlayerPrefs.GetInt("LH", loseHigh);
+        if (PlayerPrefs.GetInt("PaidSw") == 1)
+        {
+            paidSw = true;
+        }
+        else
+        {
+            paidSh = false;
+        }
+        if (PlayerPrefs.GetInt("PaidSh") == 1)
+        {
+            paidSh = true;
+        }
+        else
+        {
+            paidSh = true;
+        }
+    }
     
 	void Start () {
         menu = true;
@@ -144,6 +202,7 @@ public class HealthManager : MonoBehaviour {
         sword = 1;
         shield = 1;
         level = 1;
+        Load();
     }
 
     void PlayHit()
@@ -181,6 +240,9 @@ public class HealthManager : MonoBehaviour {
         audioFlag2e = true;
         audioTimer2e = Time.time;
     }
+
+    private float exitTimer;
+    private float exitClickTimer;
 
     void OnGUI()
     {
@@ -345,12 +407,25 @@ public class HealthManager : MonoBehaviour {
                     main.SendMessage("Fight", this.gameObject);
                     main.SendMessage("SetWeapon", sword);
                     main.SendMessage("SetShield", shield);
-                    main.SendMessage("Set level", level);
+                    main.SendMessage("SetLevel", level);
 
                 }
-                if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
+                if (GUI.RepeatButton(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
                 {
-                    Application.Quit();
+                    if (exitClickTimer - 2 > exitTimer)
+                    {
+                        Save();
+                        Application.Quit();
+                        //Debug.Log(11);
+                    }
+                    exitClickTimer = Time.time;
+                }
+                else
+                {
+                    if (Event.current.type == EventType.Repaint)
+                    {
+                        exitTimer = Time.time;
+                    }
                 }
                 if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2), "Options", stNorm))
                 {
