@@ -42,6 +42,8 @@ public class FightManager : MonoBehaviour {
     float debugTimer;
     int debugFlag;
 
+    int delayLevel;
+
     Animation swordAnim;
     Animation shieldAnim;
 
@@ -52,6 +54,11 @@ public class FightManager : MonoBehaviour {
     float waitTimerRight;
 
     public bool fight;
+
+    public void SetLevel(int x)
+    {
+        delayLevel = x;
+    }
 
     // Use this for initialization
     void Start () {
@@ -188,7 +195,7 @@ public class FightManager : MonoBehaviour {
                     // Debug.Log(waitTimerRight);
                     //Debug.Log(Time.time);
                     //Debug.Log("------------");
-                    if (waitTimerRight + 2 < Time.time)
+                    if (waitTimerRight + 2 + 0.4 * (3 - delayLevel) < Time.time)
                     {
                         ActiveEnemy(new Vector4(1, stateERight, stateERight, 1));
                         waitTimerRight = Time.time;
@@ -202,7 +209,7 @@ public class FightManager : MonoBehaviour {
                         rand = -1;
                     }
                     // Debug.Log((stateERight + rand + 3) % 3);
-                    if (waitTimerRight + 2 < Time.time)
+                    if (waitTimerRight + 2 + 0.4 * (3 - delayLevel) < Time.time)
                     {
                         firstEAction = true;
                         ActiveEnemy(new Vector4(1, (stateERight + rand + 3) % 3, (stateERight + rand + 3) % 3, 1));
@@ -224,7 +231,7 @@ public class FightManager : MonoBehaviour {
             }
             else
             {
-                if ((stateELeft != stateRight) && (waitTimerLeft + 1.5 < Time.time))
+                if ((stateELeft != stateRight) && (waitTimerLeft + 1.8 + 0.4 * (3 - delayLevel) < Time.time))
                 {
                  //   if ((stateELeft == 0) && ((int)Time.time % 2 == 0))
                    // {
@@ -371,11 +378,11 @@ public class FightManager : MonoBehaviour {
                        {
                            if (stateLeft == 0)
                            {
-                               shieldAnim.Play("ShA1-1");
+                         //      shieldAnim.Play("ShA1-1");
                            }
                            if (stateLeft == 1)
                            {
-                               shieldAnim.Play("ShA2-2");
+                             ///  shieldAnim.Play("ShA2-2");
                            }
                        }
                    }
