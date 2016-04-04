@@ -168,14 +168,14 @@ public class HealthManager : MonoBehaviour {
     private void Load()
     {
         sword = PlayerPrefs.GetInt("Weapon");
-        PlayerPrefs.GetInt("Shield", sword);
-        PlayerPrefs.GetInt("Level", level);
-        PlayerPrefs.GetInt("WL", winsLow);
-        PlayerPrefs.GetInt("WM", winsMed);
-        PlayerPrefs.GetInt("WH", winsHigh);
-        PlayerPrefs.GetInt("LL", loseLow);
-        PlayerPrefs.GetInt("LM", loseMed);
-        PlayerPrefs.GetInt("LH", loseHigh);
+        shield = PlayerPrefs.GetInt("Shield");
+        level = PlayerPrefs.GetInt("Level");
+        winsLow = PlayerPrefs.GetInt("WL");
+        winsMed = PlayerPrefs.GetInt("WM");
+        winsHigh = PlayerPrefs.GetInt("WH");
+        loseLow = PlayerPrefs.GetInt("LL");
+        loseMed = PlayerPrefs.GetInt("LM");
+        loseHigh = PlayerPrefs.GetInt("LH");
         if (PlayerPrefs.GetInt("PaidSw") == 1)
         {
             paidSw = true;
@@ -190,7 +190,7 @@ public class HealthManager : MonoBehaviour {
         }
         else
         {
-            paidSh = true;
+            paidSh = false;
         }
     }
     
@@ -202,7 +202,23 @@ public class HealthManager : MonoBehaviour {
         sword = 1;
         shield = 1;
         level = 1;
-        Load();
+        loseHigh = 0;
+        loseMed = 0;
+        loseLow = 0;
+        winsHigh = 0;
+        winsLow = 0;
+        winsMed = 0;
+        paidSh = false;
+        paidSw = false;
+        if (PlayerPrefs.GetInt("New") != 1)
+        {
+            Save();
+            PlayerPrefs.SetInt("New", 1);
+        }
+        else
+        {
+            Load();
+        }
     }
 
     void PlayHit()
@@ -358,7 +374,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = levelSt2;
                 }
-                if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 6), "Low", gs))
+                if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 6), "Easy", gs))
                 {
                     level = 1;
                 }
@@ -380,7 +396,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     gs = levelSt2;
                 }
-                if (GUI.Button(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), "High", gs) && (winsMed > 0))
+                if (GUI.Button(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), "Hard", gs) && (winsMed > 0))
                 {
                     level = 3;
                 }
@@ -395,6 +411,7 @@ public class HealthManager : MonoBehaviour {
                 //}
                 if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Back", stNorm))
                 {
+                    Save();
                     options = !options;
                 }
             }
@@ -668,6 +685,7 @@ public class HealthManager : MonoBehaviour {
                 {
                     loseHigh++;
                 }
+                Save();
                 Destroy(main);
             }
             if (enemyHealth < 1)
@@ -677,6 +695,7 @@ public class HealthManager : MonoBehaviour {
                 this.gameObject.GetComponent<Camera>().enabled = true;
                 this.gameObject.GetComponent<AudioListener>().enabled = true;
                 win = true;
+                Save();
                 if (level == 1)
                 {
                     winsLow++;
