@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Advertisements;
 
 public class HealthManager : MonoBehaviour {
 
@@ -24,6 +25,7 @@ public class HealthManager : MonoBehaviour {
     public GUIStyle levelSt2;
     public GUIStyle stHalberdT;
     public GUIStyle stHalberdF;
+    public GUIStyle stAdv;
 
     private Vector4 pSwState;
     private Vector4 pShState;
@@ -86,6 +88,7 @@ public class HealthManager : MonoBehaviour {
     private bool audioFlag1e;
     private float audioTimer2e;
     private bool audioFlag2e;
+    private bool adv;
     int sword;
     int level;
     int shield;
@@ -101,6 +104,15 @@ public class HealthManager : MonoBehaviour {
 
     private bool paidSw;
     private bool paidSh;
+
+    public void ShowAd()
+    {
+     //   if (Advertisement.IsReady())
+       // {
+        //    Advertisement.Show();
+       // }
+        adv = false;
+    }
 
     public void Fight()
     {
@@ -210,6 +222,7 @@ public class HealthManager : MonoBehaviour {
         winsMed = 0;
         paidSh = false;
         paidSw = false;
+        adv = false;
         if (PlayerPrefs.GetInt("New") != 1)
         {
             Save();
@@ -219,7 +232,8 @@ public class HealthManager : MonoBehaviour {
         {
             Load();
         }
-    }
+      //  ShowAd();
+}
 
     void PlayHit()
     {
@@ -292,242 +306,261 @@ public class HealthManager : MonoBehaviour {
         {
             audioFlag2e = false;
         }
-        if (menu)
+        if (adv)
         {
-            if (options)
+            GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Please watch the full video, it will help game better!", stAdv);
+            GUI.Label(new Rect(0, Screen.height / 4, Screen.width, Screen.height / 4), "Would you like to watch the advertising?", stAdv);
+            /// GUI.Label(new Rect(0, 0, Screen.height / 4, Screen.width), "Please watch the full video, it will help game better!", stAdv);
+            // GUI.Label(new Rect(0, Screen.height / 4, Screen.height / 4, Screen.width), "Would you like to watch the advertising?", stAdv);
+            if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Yes", levelSt1)) 
             {
-                GUIStyle gs;
-                gs = stSwF;
-                if (sword == 1)
-                {
-                    gs = stSwT;
-                }
-                if (GUI.Button(new Rect(0, 0, Screen.width / 6, Screen.height / 2), "", gs))
-                {
-                    sword = 1;
-                }
-                gs = stAxeF;
-                if (sword == 2)
-                {
-                    gs = stAxeT;
-                }
-                if (GUI.Button(new Rect(Screen.width / 6, 0, Screen.width / 6, Screen.height / 2), "", gs) && (winsHigh > 0))
-                {
-                    sword = 2;
-                }
-                if (winsHigh == 0)
-                {
-                    GUI.DrawTexture(new Rect(Screen.width / 6, 0, Screen.width / 6, Screen.height / 2), locked);
-                }
-                gs = stHalberdF;
-                if (sword == 3)
-                {
-                    gs = stHalberdT;
-                }
-                if (GUI.Button(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSw))
-                {
-                    sword = 3;
-                }
-                if (!paidSw)
-                {
-                    GUI.DrawTexture(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), locked);
-                }
-                gs = stSh1F;
-                if (shield == 1)
-                {
-                    gs = stSh1T;
-                }
-                if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 6, Screen.height / 2), "", gs))
-                {
-                    shield = 1;
-                }
-                gs = stSh2F;
-                if (shield == 2)
-                {
-                    gs = stSh2T;
-                }
-                if (GUI.Button(new Rect(Screen.width / 6 * 4, 0, Screen.width / 6, Screen.height / 2), "", gs) && (winsHigh > 0))
-                {
-
-                    shield = 2;
-                }
-                if (winsHigh == 0)
-                {
-                    GUI.DrawTexture(new Rect(Screen.width / 6 * 4, 0, Screen.width / 6, Screen.height / 2), locked);
-                }
-                gs = stSh3F;
-                if (shield == 3)
-                {
-                    gs = stSh3T;
-                }
-                if (GUI.Button(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSh))
-                {
-
-                    shield = 3;
-                }
-                if (!paidSh)
-                {
-                    GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), locked);
-                }
-                gs = levelSt1;
-                if (level == 1)
-                {
-                    gs = levelSt2;
-                }
-                if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 6), "Easy", gs))
-                {
-                    level = 1;
-                }
-                gs = levelSt1;
-                if (level == 2)
-                {
-                    gs = levelSt2;
-                }
-                if (GUI.Button(new Rect(0, Screen.height / 6 * 4, Screen.width / 2, Screen.height / 6), "Medium", gs) && (winsLow > 0))
-                {
-                    level = 2;
-                }
-                if (winsLow == 0)
-                {
-                    GUI.DrawTexture(new Rect(0, Screen.height / 6 * 4, Screen.width / 2, Screen.height / 6), locked);
-                }
-                gs = levelSt1;
-                if (level == 3)
-                {
-                    gs = levelSt2;
-                }
-                if (GUI.Button(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), "Hard", gs) && (winsMed > 0))
-                {
-                    level = 3;
-                }
-                if (winsMed == 0)
-                {
-                    GUI.DrawTexture(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), locked);
-                }
-               // GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
-               // if (GUI.Button(new Rect(Screen.width / 4, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map2", gs))
-              //  {
-               //     map = false;
-                //}
-                if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Back", stNorm))
-                {
-                    Save();
-                    options = !options;
-                }
+                ShowAd();
             }
-            else
+            if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "No", levelSt1))
             {
-                if (GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height / 2), "Start", stNorm))
-                {
-                    menu = false;
-                    Fight();
-                    main.SendMessage("Fight", this.gameObject);
-                    main.SendMessage("SetWeapon", sword);
-                    main.SendMessage("SetShield", shield);
-                    main.SendMessage("SetLevel", level);
-
-                }
-                if (GUI.RepeatButton(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
-                {
-                    if (exitClickTimer - 2 > exitTimer)
-                    {
-                        Save();
-                        Application.Quit();
-                        //Debug.Log(11);
-                    }
-                    exitClickTimer = Time.time;
-                }
-                else
-                {
-                    if (Event.current.type == EventType.Repaint)
-                    {
-                        exitTimer = Time.time;
-                    }
-                }
-                if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2), "Options", stNorm))
-                {
-                    options = !options;
-                }
-                if (level == 1)
-                {
-
-                    if (!((winsLow == 0) && (loseLow == 0)))
-                    {
-                        if (win)
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
-                        }
-                        else
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
-                        }
-                    }
-                    else
-                    {
-                        GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
-                    }
-                    GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsLow.ToString() + ":" + loseLow.ToString(), stNorm1);
-                }
-                if (level == 2)
-                {
-
-                    if (!((winsMed == 0) && (loseMed == 0)))
-                    {
-                        if (win)
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
-                        }
-                        else
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
-                        }
-                    }
-                    else
-                    {
-                        GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
-                    }
-                    GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsMed.ToString() + ":" + loseMed.ToString(), stNorm1);
-                }
-                if (level == 3)
-                {
-
-                    if (!((winsHigh == 0) && (loseHigh == 0)))
-                    {
-                        if (win)
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
-                        }
-                        else
-                        {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
-                        }
-                    }
-                    else
-                    {
-                        GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
-                    }
-                    GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsHigh.ToString() + ":" + loseHigh.ToString(), stNorm1);
-                }
+                adv = false;
             }
-
         }
         else
         {
-            string s = playerHealth.ToString();
-            // Debug.Log(eShState.y);
-            if (level != 3)
+            if (menu)
             {
-                GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * (pSwState.y - 3), Screen.width / 8, Screen.height / 12), plSw);
-                GUI.DrawTexture(new Rect(Screen.width / 2 - Screen.width / 8, Screen.height / 3 * pShState.y, Screen.width / 8, Screen.height / 12), plSh);
-                GUI.DrawTexture(new Rect(Screen.width / 2 - Screen.width / 8, Screen.height / 3 * (eSwState.y - 3), Screen.width / 8, Screen.height / 12), eSwT);
-                GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * eShState.y, Screen.width / 10, Screen.height / 12), eShT);
-            }
+                if (options)
+                {
+                    GUIStyle gs;
+                    gs = stSwF;
+                    if (sword == 1)
+                    {
+                        gs = stSwT;
+                    }
+                    if (GUI.Button(new Rect(0, 0, Screen.width / 4, Screen.height / 2), "", gs))
+                    {
+                        sword = 1;
+                    }
+                    gs = stAxeF;
+                    if (sword == 2)
+                    {
+                        gs = stAxeT;
+                    }
+                    if (GUI.Button(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), "", gs) && (winsHigh > 0))
+                    {
+                        sword = 2;
+                    }
+                    if (winsHigh == 0)
+                    {
+                        GUI.DrawTexture(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), locked);
+                    }
+                    //  gs = stHalberdF;
+                    // if (sword == 3)
+                    // {
+                    //   gs = stHalberdT;
+                    // }
+                    //     if (GUI.Button(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSw))
+                    //   {
+                    //     sword = 3;
+                    // }
+                    // if (!paidSw)
+                    // {
+                    //     GUI.DrawTexture(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), locked);
+                    // }
+                    gs = stSh1F;
+                    if (shield == 1)
+                    {
+                        gs = stSh1T;
+                    }
+                    if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 4, Screen.height / 2), "", gs))
+                    {
+                        shield = 1;
+                    }
+                    gs = stSh2F;
+                    if (shield == 2)
+                    {
+                        gs = stSh2T;
+                    }
+                    if (GUI.Button(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), "", gs) && (winsHigh > 0))
+                    {
 
-            GUI.DrawTexture(new Rect(0, 0, Screen.width / 6, Screen.height / 4), playerHT);
-            GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), enemyHT);
-            GUI.Label(new Rect(0, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);//playerHealth.ToString);
-            s = enemyHealth.ToString();
-            GUI.Label(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);// enemyHealth.ToString);
+                        shield = 2;
+                    }
+                    if (winsHigh == 0)
+                    {
+                        GUI.DrawTexture(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), locked);
+                    }
+                    // gs = stSh3F;
+                    //if (shield == 3)
+                    // {
+                    // //    gs = stSh3T;
+                    // }
+                    //  if (GUI.Button(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSh))
+                    // {
+
+                    // shield = 3;
+                    // }
+                    //   if (!paidSh)
+                    //  {
+                    //     GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), locked);
+                    // }
+                    gs = levelSt1;
+                    if (level == 1)
+                    {
+                        gs = levelSt2;
+                    }
+                    if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 6), "Easy", gs))
+                    {
+                        level = 1;
+                    }
+                    gs = levelSt1;
+                    if (level == 2)
+                    {
+                        gs = levelSt2;
+                    }
+                    if (GUI.Button(new Rect(0, Screen.height / 6 * 4, Screen.width / 2, Screen.height / 6), "Medium", gs) && (winsLow > 0))
+                    {
+                        level = 2;
+                    }
+                    if (winsLow == 0)
+                    {
+                        GUI.DrawTexture(new Rect(0, Screen.height / 6 * 4, Screen.width / 2, Screen.height / 6), locked);
+                    }
+                    gs = levelSt1;
+                    if (level == 3)
+                    {
+                        gs = levelSt2;
+                    }
+                    if (GUI.Button(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), "Hard", gs) && (winsMed > 0))
+                    {
+                        level = 3;
+                    }
+                    if (winsMed == 0)
+                    {
+                        GUI.DrawTexture(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), locked);
+                    }
+                    // GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                    // if (GUI.Button(new Rect(Screen.width / 4, Screen.height / 2, Screen.width / 4, Screen.height / 2), "Map2", gs))
+                    //  {
+                    //     map = false;
+                    //}
+                    if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Back", stNorm))
+                    {
+                        Save();
+                        options = !options;
+                    }
+                }
+                else
+                {
+                    if (GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height / 2), "Start", stNorm))
+                    {
+                        menu = false;
+                        Fight();
+                        main.SendMessage("Fight", this.gameObject);
+                        main.SendMessage("SetWeapon", sword);
+                        main.SendMessage("SetShield", shield);
+                        main.SendMessage("SetLevel", level);
+
+                    }
+                    if (GUI.RepeatButton(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
+                    {
+                        if (exitClickTimer - 1.2 > exitTimer)
+                        {
+                          //  ShowAd();
+                            Save();
+                            Application.Quit();
+                            //Debug.Log(11);
+                        }
+                        exitClickTimer = Time.time;
+                    }
+                    else
+                    {
+                        if (Event.current.type == EventType.Repaint)
+                        {
+                            exitTimer = Time.time;
+                        }
+                    }
+                    if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2), "Options", stNorm))
+                    {
+                        options = !options;
+                    }
+                    if (level == 1)
+                    {
+
+                        if (!((winsLow == 0) && (loseLow == 0)))
+                        {
+                            if (win)
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                            }
+                            else
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                            }
+                        }
+                        else
+                        {
+                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                        }
+                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsLow.ToString() + ":" + loseLow.ToString(), stNorm1);
+                    }
+                    if (level == 2)
+                    {
+
+                        if (!((winsMed == 0) && (loseMed == 0)))
+                        {
+                            if (win)
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                            }
+                            else
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                            }
+                        }
+                        else
+                        {
+                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                        }
+                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsMed.ToString() + ":" + loseMed.ToString(), stNorm1);
+                    }
+                    if (level == 3)
+                    {
+
+                        if (!((winsHigh == 0) && (loseHigh == 0)))
+                        {
+                            if (win)
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                            }
+                            else
+                            {
+                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                            }
+                        }
+                        else
+                        {
+                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                        }
+                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsHigh.ToString() + ":" + loseHigh.ToString(), stNorm1);
+                    }
+                }
+
+            }
+            else
+            {
+                string s = playerHealth.ToString();
+                // Debug.Log(eShState.y);
+                if (level != 3)
+                {
+                    GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * (pSwState.y - 3), Screen.width / 8, Screen.height / 12), plSw);
+                    GUI.DrawTexture(new Rect(Screen.width / 2 - Screen.width / 8, Screen.height / 3 * pShState.y, Screen.width / 8, Screen.height / 12), plSh);
+                    GUI.DrawTexture(new Rect(Screen.width / 2 - Screen.width / 8, Screen.height / 3 * (eSwState.y - 3), Screen.width / 8, Screen.height / 12), eSwT);
+                    GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 3 * eShState.y, Screen.width / 10, Screen.height / 12), eShT);
+                }
+
+                GUI.DrawTexture(new Rect(0, 0, Screen.width / 6, Screen.height / 4), playerHT);
+                GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), enemyHT);
+                GUI.Label(new Rect(0, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);//playerHealth.ToString);
+                s = enemyHealth.ToString();
+                GUI.Label(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 4), s, stNormTex);// enemyHealth.ToString);
+            }
         }
     }
 
@@ -699,14 +732,26 @@ public class HealthManager : MonoBehaviour {
                 if (level == 1)
                 {
                     winsLow++;
+                    if (winsLow % 3 == 0)
+                    {
+                      //  adv = true;
+                    }
                 }
                 if (level == 2)
                 {
                     winsMed++;
+                    if (winsMed % 3 == 0)
+                    {
+                       // adv = true;
+                    }
                 }
                 if (level == 3)
                 {
                     winsHigh++;
+                    if (winsHigh % 3 == 0)
+                    {
+                      //  adv = true;
+                    }
                 }
                 Destroy(main);
             }
