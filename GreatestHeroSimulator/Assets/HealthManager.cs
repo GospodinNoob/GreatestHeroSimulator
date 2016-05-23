@@ -8,6 +8,10 @@ public class HealthManager : MonoBehaviour {
     public GameObject main;
     bool options;
 
+    public GameObject go1;
+
+    public Texture2D gal;
+
     public GUIStyle stNorm;
     public GUIStyle stNormTex;
     public GUIStyle stNorm1;
@@ -118,6 +122,7 @@ public class HealthManager : MonoBehaviour {
     {
         options = false;
         win = false;
+        go1.active = false;
         pSwState = new Vector4(4, 4, 0, 0);
         pShState = new Vector4(1, 1, 0, 0);
         eSwState = new Vector4(4, 4, 0, 0);
@@ -232,6 +237,7 @@ public class HealthManager : MonoBehaviour {
         {
             Load();
         }
+        go1.active = true;
       //  ShowAd();
 }
 
@@ -308,18 +314,18 @@ public class HealthManager : MonoBehaviour {
         }
         if (adv)
         {
-            GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Please watch the full video, it will help game better!", stAdv);
-            GUI.Label(new Rect(0, Screen.height / 4, Screen.width, Screen.height / 4), "Would you like to watch the advertising?", stAdv);
+         //   GUI.Label(new Rect(0, 0, Screen.width, Screen.height / 4), "Please watch the full video, it will help game better!", stAdv);
+          //  GUI.Label(new Rect(0, Screen.height / 4, Screen.width, Screen.height / 4), "Would you like to watch the advertising?", stAdv);
             /// GUI.Label(new Rect(0, 0, Screen.height / 4, Screen.width), "Please watch the full video, it will help game better!", stAdv);
             // GUI.Label(new Rect(0, Screen.height / 4, Screen.height / 4, Screen.width), "Would you like to watch the advertising?", stAdv);
-            if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Yes", levelSt1)) 
-            {
-                ShowAd();
-            }
-            if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "No", levelSt1))
-            {
-                adv = false;
-            }
+        //    if (GUI.Button(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Yes", levelSt1)) 
+         //   {
+          //      ShowAd();
+          //  }
+          //  if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "No", levelSt1))
+          //  {
+          //      adv = false;
+           // }
         }
         else
         {
@@ -333,7 +339,7 @@ public class HealthManager : MonoBehaviour {
                     {
                         gs = stSwT;
                     }
-                    if (GUI.Button(new Rect(0, 0, Screen.width / 4, Screen.height / 2), "", gs))
+                    if (GUI.Button(new Rect(0, 0, Screen.width / 6, Screen.height / 2), "", gs))
                     {
                         sword = 1;
                     }
@@ -342,33 +348,36 @@ public class HealthManager : MonoBehaviour {
                     {
                         gs = stAxeT;
                     }
-                    if (GUI.Button(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), "", gs) && (winsHigh > 0))
+                    if (GUI.Button(new Rect(Screen.width / 6, 0, Screen.width / 6, Screen.height / 2), "", gs) && (winsHigh > 0))
                     {
                         sword = 2;
                     }
                     if (winsHigh == 0)
                     {
-                        GUI.DrawTexture(new Rect(Screen.width / 4, 0, Screen.width / 4, Screen.height / 2), locked);
+                        GUI.DrawTexture(new Rect(Screen.width / 6, 0, Screen.width / 6, Screen.height / 2), locked);
                     }
-                    //  gs = stHalberdF;
-                    // if (sword == 3)
-                    // {
-                    //   gs = stHalberdT;
-                    // }
-                    //     if (GUI.Button(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSw))
-                    //   {
-                    //     sword = 3;
-                    // }
-                    // if (!paidSw)
-                    // {
-                    //     GUI.DrawTexture(new Rect(Screen.width / 6 * 2, 0, Screen.width / 6, Screen.height / 2), locked);
-                    // }
+                      gs = stHalberdF;
+                     if (sword == 3)
+                     {
+                       gs = stHalberdT;
+                     }
+                     if (GUI.Button(new Rect(Screen.width / 3, 0, Screen.width / 6, Screen.height / 2), "", gs) && !(winsHigh == 0))
+                     {
+                         sword = 3;
+                     }
+                     if ((winsHigh == 0))
+                     {
+                         GUI.DrawTexture(new Rect(Screen.width / 3, 0, Screen.width / 6, Screen.height / 2), locked);
+                     }
+
+
+
                     gs = stSh1F;
                     if (shield == 1)
                     {
                         gs = stSh1T;
                     }
-                    if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 4, Screen.height / 2), "", gs))
+                    if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 6, Screen.height / 2), "", gs))
                     {
                         shield = 1;
                     }
@@ -377,29 +386,29 @@ public class HealthManager : MonoBehaviour {
                     {
                         gs = stSh2T;
                     }
-                    if (GUI.Button(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), "", gs) && (winsHigh > 0))
+                    if (GUI.Button(new Rect(Screen.width / 6 * 4, 0, Screen.width / 6, Screen.height / 2), "", gs) && (winsHigh > 0))
                     {
 
                         shield = 2;
                     }
                     if (winsHigh == 0)
                     {
-                        GUI.DrawTexture(new Rect(Screen.width / 4 * 3, 0, Screen.width / 4, Screen.height / 2), locked);
+                        GUI.DrawTexture(new Rect(Screen.width / 6 * 4, 0, Screen.width / 6, Screen.height / 2), locked);
                     }
-                    // gs = stSh3F;
-                    //if (shield == 3)
-                    // {
-                    // //    gs = stSh3T;
-                    // }
-                    //  if (GUI.Button(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), "", gs) && (paidSh))
-                    // {
+                     gs = stSh3F;
+                    if (shield == 3)
+                     {
+                        gs = stSh3T;
+                     }
+                      if (GUI.Button(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), "", gs) && !(winsHigh == 0))
+                     {
 
-                    // shield = 3;
-                    // }
-                    //   if (!paidSh)
-                    //  {
-                    //     GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), locked);
-                    // }
+                     shield = 3;
+                     }
+                       if (winsHigh == 0)
+                      {
+                         GUI.DrawTexture(new Rect(Screen.width / 6 * 5, 0, Screen.width / 6, Screen.height / 2), locked);
+                     }
                     gs = levelSt1;
                     if (level == 1)
                     {
@@ -440,6 +449,18 @@ public class HealthManager : MonoBehaviour {
                     //  {
                     //     map = false;
                     //}
+                     if (winsLow > 0)
+                    {
+                    GUI.DrawTexture(new Rect(0, Screen.height / 2, Screen.height / 6, Screen.height / 6), gal);
+                    }
+                    if (winsMed > 0)
+                    {
+                        GUI.DrawTexture(new Rect(0, Screen.height / 2, Screen.height / 6, Screen.height / 6), gal);
+                    }
+                    if (winsHigh > 0)
+                    {
+                        GUI.DrawTexture(new Rect(0, Screen.height / 2, Screen.height / 6, Screen.height / 6), gal);
+                    }
                     if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Back", stNorm))
                     {
                         Save();
@@ -448,7 +469,7 @@ public class HealthManager : MonoBehaviour {
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height / 2), "Start", stNorm))
+                    if (GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height / 3), "Start", stNorm))
                     {
                         menu = false;
                         Fight();
@@ -458,25 +479,25 @@ public class HealthManager : MonoBehaviour {
                         main.SendMessage("SetLevel", level);
 
                     }
-                    if (GUI.RepeatButton(new Rect(Screen.width / 2, Screen.height / 2, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
-                    {
-                        if (exitClickTimer - 1.2 > exitTimer)
-                        {
+                 //   if (GUI.RepeatButton(new Rect(0, Screen.height / 3, Screen.width / 2, Screen.height / 2), "Exit", stNorm))
+                   // {
+                     //   if (exitClickTimer - 1.2 > exitTimer)
+                      //  {
                           //  ShowAd();
-                            Save();
-                            Application.Quit();
+                        //    Save();
+                          //  Application.Quit();
                             //Debug.Log(11);
-                        }
-                        exitClickTimer = Time.time;
-                    }
-                    else
-                    {
-                        if (Event.current.type == EventType.Repaint)
-                        {
-                            exitTimer = Time.time;
-                        }
-                    }
-                    if (GUI.Button(new Rect(Screen.width / 2, 0, Screen.width / 2, Screen.height / 2), "Options", stNorm))
+                        //}
+                        //exitClickTimer = Time.time;
+                   // }
+                    //else
+                    //{
+                      //  if (Event.current.type == EventType.Repaint)
+                       // {
+                        //    exitTimer = Time.time;
+                        //}
+                   // }
+                    if (GUI.Button(new Rect(0, Screen.height / 3, Screen.width / 2, Screen.height / 3), "Options", stNorm))
                     {
                         options = !options;
                     }
@@ -487,18 +508,18 @@ public class HealthManager : MonoBehaviour {
                         {
                             if (win)
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You win", stNorm1);
                             }
                             else
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You lose", stNorm1);
                             }
                         }
                         else
                         {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                            GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "", stNorm1);
                         }
-                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsLow.ToString() + ":" + loseLow.ToString(), stNorm1);
+                        GUI.Label(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), winsLow.ToString() + ":" + loseLow.ToString(), stNorm1);
                     }
                     if (level == 2)
                     {
@@ -507,18 +528,18 @@ public class HealthManager : MonoBehaviour {
                         {
                             if (win)
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You win", stNorm1);
                             }
                             else
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You lose", stNorm1);
                             }
                         }
                         else
                         {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                            GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "", stNorm1);
                         }
-                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsMed.ToString() + ":" + loseMed.ToString(), stNorm1);
+                        GUI.Label(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), winsMed.ToString() + ":" + loseMed.ToString(), stNorm1);
                     }
                     if (level == 3)
                     {
@@ -527,18 +548,18 @@ public class HealthManager : MonoBehaviour {
                         {
                             if (win)
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You win", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You win", stNorm1);
                             }
                             else
                             {
-                                GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "You lose", stNorm1);
+                                GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "You lose", stNorm1);
                             }
                         }
                         else
                         {
-                            GUI.Label(new Rect(0, Screen.height / 2, Screen.width / 2, Screen.height / 2), "", stNorm1);
+                            GUI.Label(new Rect(0, Screen.height / 3 * 2, Screen.width / 2, Screen.height / 3), "", stNorm1);
                         }
-                        GUI.Label(new Rect(0, Screen.height / 4 * 3, Screen.width / 2, Screen.height / 2), winsHigh.ToString() + ":" + loseHigh.ToString(), stNorm1);
+                        GUI.Label(new Rect(0, Screen.height / 6 * 5, Screen.width / 2, Screen.height / 6), winsHigh.ToString() + ":" + loseHigh.ToString(), stNorm1);
                     }
                 }
 
@@ -702,6 +723,7 @@ public class HealthManager : MonoBehaviour {
             if (playerHealth < 1)
             {
                 fight = false;
+                go1.active = true;
                 menu = true;
                 this.gameObject.GetComponent<Camera>().enabled = true;
                 this.gameObject.GetComponent<AudioListener>().enabled = true;
@@ -723,6 +745,7 @@ public class HealthManager : MonoBehaviour {
             }
             if (enemyHealth < 1)
             {
+                go1.active = true;
                 fight = false;
                 menu = true;
                 this.gameObject.GetComponent<Camera>().enabled = true;

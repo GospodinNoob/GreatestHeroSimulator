@@ -100,6 +100,10 @@
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\Standard Assets\Shaders\DifSpecTransp.shader" />
     <None Include="Assets\XWeaponTrail\Model\readme.txt" />
     <None Include="Assets\XWeaponTrail\Shader\xft_displacement_screen.shader" />
